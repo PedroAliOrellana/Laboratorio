@@ -415,7 +415,7 @@ public class Lista
                         break;
                   case 6:emp.setFechaNacimiento(linea);
                         break;      
-                  case 7:emp.setSexo(Via);
+                  case 7:emp.setSexo(linea);
                         break;
                   case 8:emp.setFechaInicio(linea); 
                          ListaEmpleado.add(emp);
@@ -459,6 +459,21 @@ public class Lista
      }
    return -1;
     }
+     public int BuscarEmpleado(String C)
+    {
+        int posi;
+        Empleado emp = new Empleado();
+        String ced;
+        
+        for(posi = 0;posi<ListaEmpleado.size();posi++)
+        {
+            emp = ListaEmpleado.get(posi);
+            ced= emp.getCedula();
+            if(ced.equals(C))
+                return posi;
+        }
+        return -1;
+    }
 }
 
-    
+ 

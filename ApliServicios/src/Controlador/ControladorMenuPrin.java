@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Lista;
 import Vista.JFrameMenuPrin;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,7 @@ public class ControladorMenuPrin implements ActionListener
         lisEmpreServicios.cargarServicio();        
         lisEmpreServicios.cargarCliente();
         lisEmpreServicios.cargarRecurso();
+        lisEmpreServicios.cargarEmpleado();
         
         formMenuPrin = new JFrameMenuPrin();
         formMenuPrin.agregarListener(this);
@@ -49,8 +51,7 @@ public class ControladorMenuPrin implements ActionListener
       }
        if(e.getSource().equals(formMenuPrin.getjMenuItemEmpleado()))
       {
-          new ControladorEmpleado();
-           System.out.println("Esta en empleado1"); 
+          new ControladorEmpleado(lisEmpreServicios);
       }
        if(e.getSource().equals(formMenuPrin.getjMenuItemUsuario()))
       {
