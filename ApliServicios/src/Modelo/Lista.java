@@ -13,8 +13,10 @@ public class Lista
   private LinkedList<Obra> ListaObra= new LinkedList<Obra>();
   private LinkedList<Empleado> ListaEmpleado= new LinkedList<Empleado>();
   private LinkedList<Usuario> ListaUsuario= new LinkedList<Usuario>();
-
-    public LinkedList<Servicio> getListaServicio() {
+  private LinkedList<Vehiculo> ListaVehiculo= new LinkedList<Vehiculo>();
+    
+  
+  public LinkedList<Servicio> getListaServicio() {
         return ListaServicio;
     }
 
@@ -38,7 +40,9 @@ public class Lista
         return ListaUsuario;
     }
   
-  
+   public LinkedList<Vehiculo> getListaVehiculo() {
+        return ListaVehiculo;
+    }
   
   
   
@@ -347,6 +351,7 @@ public class Lista
                   case 3:usuario.setNivelAcceso(linea);
                           ListaUsuario.add(usuario);
                           usuario=new Usuario();
+                          Cnt=0;
                          break;
   
               }                
@@ -415,7 +420,7 @@ public class Lista
                         break;
                   case 6:emp.setFechaNacimiento(linea);
                         break;      
-                  case 7:emp.setSexo(linea);
+                  case 7:emp.setSexo(Via);
                         break;
                   case 8:emp.setFechaInicio(linea); 
                          ListaEmpleado.add(emp);
@@ -459,7 +464,73 @@ public class Lista
      }
    return -1;
     }
-     public int BuscarEmpleado(String C)
+//----------------------------------------
+   
+    public void cargarVehiculo()
+  {
+    Vehiculo veh=new Vehiculo();
+           
+    String Via;
+    int Cnt;
+    File archivo = null;
+    FileReader fr = null;
+    BufferedReader br = null;
+    boolean respon;
+
+      try {
+         // Apertura del fichero y creacion de BufferedReader para poder
+         // hacer una lectura comoda (disponer del metodo readLine()).
+         //archivo = new File ("C:\\Arbitros.txt");
+                           
+         Via=System.getProperty("user.dir")+"/src/Archivos/Vehiculo.txt";   
+        
+         archivo = new File (Via);
+         
+         fr = new FileReader (archivo);
+         br = new BufferedReader(fr);
+
+         // Lectura del fichero
+         String linea;
+         
+         Cnt=0;
+         
+         while((linea=br.readLine())!=null)
+            {               
+              Cnt++;
+              
+              switch (Cnt)
+              {
+                  case 1:veh.setMarca(linea);
+                         break;
+                  case 2:veh.setModelo(linea);
+                        break;
+                  case 3:veh.setPlaca(linea);
+                        break;
+                  
+                  case 4:veh.setCapacidad(linea); 
+                         ListaVehiculo.add(veh);
+                         veh=new Vehiculo();//resetear                         
+                         Cnt=0;
+                         break;    
+              }                
+              
+            }
+                        
+      }
+      catch(Exception e){
+      }finally{
+         // En el finally cerramos el fichero, para asegurarnos
+         // que se cierra tanto si todo va bien como si salta 
+         // una excepcion.
+         try{                    
+            if( null != fr ){   
+               fr.close();     
+            }                  
+         }catch (Exception e2){ 
+         }
+      }      
+}
+   public int BuscarEmpleado(String C)
     {
         int posi;
         Empleado emp = new Empleado();
@@ -477,3 +548,7 @@ public class Lista
 }
 
  
+
+ 
+
+   

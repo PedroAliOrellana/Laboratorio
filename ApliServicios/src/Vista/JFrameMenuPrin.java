@@ -25,6 +25,9 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -33,6 +36,7 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
         jMenuItemRecursos = new javax.swing.JMenuItem();
         jMenuItemUsuario = new javax.swing.JMenuItem();
         jMenuItemEmpleado = new javax.swing.JMenuItem();
+        jMenuItemVehiculo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -40,6 +44,12 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
+
+        jMenu4.setText("File");
+        jMenuBar2.add(jMenu4);
+
+        jMenu5.setText("Edit");
+        jMenuBar2.add(jMenu5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -68,6 +78,9 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
 
         jMenuItemEmpleado.setText("Empleado");
         jMenu1.add(jMenuItemEmpleado);
+
+        jMenuItemVehiculo.setText("Vehiculo");
+        jMenu1.add(jMenuItemVehiculo);
 
         jMenuBar1.add(jMenu1);
 
@@ -133,6 +146,11 @@ public JMenuItem getjMenuItemClientes()
         return jMenuItemUsuario;
     }
 
+    public JMenuItem getjMenuItemVehiculo() 
+    {
+        return jMenuItemVehiculo;
+    }
+
     public JMenuItem getjMenuItemEmpleado() {
         return jMenuItemEmpleado;
     }
@@ -146,6 +164,7 @@ public void agregarListener (ActionListener accion)
     this.jMenuItemRecursos.addActionListener(accion);
     this.jMenuItemUsuario.addActionListener(accion);
     this.jMenuItemEmpleado.addActionListener(accion);
+    this.jMenuItemVehiculo.addActionListener(accion);
 }    
 
  
@@ -154,7 +173,10 @@ public void agregarListener (ActionListener accion)
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
@@ -164,5 +186,6 @@ public void agregarListener (ActionListener accion)
     private javax.swing.JMenuItem jMenuItemRecursos;
     private javax.swing.JMenuItem jMenuItemServicio;
     private javax.swing.JMenuItem jMenuItemUsuario;
+    private javax.swing.JMenuItem jMenuItemVehiculo;
     // End of variables declaration//GEN-END:variables
 }

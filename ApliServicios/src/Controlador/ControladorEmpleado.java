@@ -100,7 +100,8 @@ public class ControladorEmpleado implements ActionListener,KeyListener
         formEmpleado.getTxtFechaNac().setEditable(true);
         formEmpleado.getTxtTlf().setEditable(true);
         formEmpleado.getTxtNombre().setEditable(true);
-        formEmpleado.getCmbNacionalidad().setEnabled(true);
+        formEmpleado.getCmbNacionalidad().setEnabled(false);
+        formEmpleado.getTxtCedula().setEditable(false);
         formEmpleado.getCmbSexo().setEnabled(true);
         formEmpleado.getcmbCargo().setEnabled(true);
         formEmpleado.getBtnGrabar().setEnabled(true);
@@ -116,7 +117,9 @@ public class ControladorEmpleado implements ActionListener,KeyListener
         formEmpleado.getTxtNombre().setEditable(false);
         formEmpleado.getCmbSexo().setEnabled(false);
         formEmpleado.getcmbCargo().setEnabled(false);
+        formEmpleado.getTxtCedula().setEditable(true);
         formEmpleado.getTxtCedula().requestFocusInWindow();
+        formEmpleado.getCmbNacionalidad().setEnabled(true);
         formEmpleado.getBtnGrabar().setEnabled(false);
     }
     
@@ -233,12 +236,39 @@ public class ControladorEmpleado implements ActionListener,KeyListener
     private void Grabar()
     {
         int posi;
+        Empleado emp;
         if (Verificar())
         {
             posi=ListaEmpleado.BuscarEmpleado(formEmpleado.getTxtCedula().getText());
             if(posi==-1)
             {
-                
+                emp= new Empleado(formEmpleado.getTxtFechaIng().getText(),
+                formEmpleado.getTxtCedula().getText(),
+                formEmpleado.getTxtNombre().getText(),
+                formEmpleado.getTxtApellidos().getText(),
+                formEmpleado.getTxtDireccion().getText(),
+                formEmpleado.getTxtTlf().getText(),
+                formEmpleado.getTxtFechaNac().getText(),
+                formEmpleado.getCmbSexo().getSelectedItem().toString(),
+                formEmpleado.getcmbCargo().getSelectedItem().toString());  
+                ListaEmpleado.getListaEmpleado().add(emp);
+                JOptionPane.showMessageDialog(null,"Empleado Guardado Correctamente","Datos almacenados",JOptionPane.OK_OPTION+JOptionPane.INFORMATION_MESSAGE);
+                DeshabilitarControles();
+                Limpiar();              
+            }
+            else
+            {               
+                ListaEmpleado.getListaEmpleado().get(posi).setApellido(formEmpleado.getTxtApellidos().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setTelefono(formEmpleado.getTxtTlf().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setDireccion(formEmpleado.getTxtDireccion().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setFechaInicio(formEmpleado.getTxtFechaIng().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setFechaNacimiento(formEmpleado.getTxtFechaNac().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setNombre(formEmpleado.getTxtNombre().getText());
+                ListaEmpleado.getListaEmpleado().get(posi).setSexo(formEmpleado.getCmbSexo().getSelectedItem().toString());
+                //ListaEmpleado.getListaEmpleado().get(posi).setCargo(formEmpleado.getcmbCargo().getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null,"Datos Actualizados Correctamente","Información Actualizada",JOptionPane.OK_OPTION+JOptionPane.INFORMATION_MESSAGE);
+                DeshabilitarControles();
+                Limpiar(); 
             }
         }        
     }

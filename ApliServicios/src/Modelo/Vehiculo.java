@@ -6,24 +6,28 @@ public class Vehiculo
 {
     private String Placa;
     private String Modelo;
-    private int Cantidad;
+    private String Capacidad;
     private String Marca;
 
     public Vehiculo() 
     {
         Placa = "";
         Modelo = "";
-        Cantidad =0;
+        Capacidad= "";
         Marca = "";
     }
 
     
-    public Vehiculo(String Placa, String Modelo, int Cantidad, String Marca) 
+    public Vehiculo(String Placa, String Modelo, String Capacidad, String Marca) 
     {
         this.Placa = Placa;
         this.Modelo = Modelo;
-        this.Cantidad = Cantidad;
+        this.Capacidad = Capacidad;
         this.Marca = Marca;
+    }
+
+    public Vehiculo(String Placa) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -49,14 +53,14 @@ public class Vehiculo
         this.Modelo = Modelo;
     }
 
-    public int getCantidad() 
+    public String getCapacidad() 
     {
-        return Cantidad;
+        return Capacidad;
     }
 
-    public void setCantidad(int Cantidad) 
+    public void setCapacidad(String Capacidad) 
     {
-        this.Cantidad = Cantidad;
+        this.Capacidad = Capacidad;
     }
 
     public String getMarca() 

@@ -18,6 +18,13 @@ public class Validaciones
       JOptionPane.WARNING_MESSAGE);
     }
      
+    public static void Confirmacion(String Mensaje,String CaptionWin) {
+
+      JOptionPane.showMessageDialog(null,
+      Mensaje,
+      CaptionWin,
+      JOptionPane.INFORMATION_MESSAGE);
+    }
 //-----------------------------------     
    public static String getFechaActual() 
    {

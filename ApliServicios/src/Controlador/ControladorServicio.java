@@ -87,10 +87,30 @@ private void DescServicioKeyTyped(KeyEvent e)
     
 }        
 //-------------------------------------
+ private void Limpiar()    
+{ 
+    formServicio.getTxtCodServicio().setText("");
+    formServicio.getTxtDescServicio().setText("");
+}
+ private void Grabar()
+ {
+ }
 
     @Override
-    public void actionPerformed(ActionEvent ae) 
+    public void actionPerformed(ActionEvent e) 
     {
+          if (e.getSource().equals(formServicio.getBtnCancelar()))  
+      {  
+        Limpiar();  
+      } 
+           if (e.getSource().equals(formServicio.getBtnRegresar()))  
+      {  
+        formServicio.dispose();
+      }
+             if (e.getSource().equals(formServicio.getBtnGrabar()))  
+      {  
+        Grabar();
+      }
     }
 
 

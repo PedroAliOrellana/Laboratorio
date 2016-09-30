@@ -1,157 +1,78 @@
 package Controlador;
 
-import Librerias.Validaciones;
 import Modelo.Lista;
 import Modelo.Usuario;
 import Vista.JFrameUsuario;
-import static com.sun.javafx.tk.Toolkit.getToolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-
-public class ControladorUsuario implements ActionListener
+public class ControladorUsuario implements ActionListener,KeyListener
 {
     private JFrameUsuario formUsuario;
     private Lista ListaUsuario;
 
-    public ControladorUsuario() 
+    public ControladorUsuario(Lista lisUs) 
     {
+        ListaUsuario = lisUs;
         formUsuario = new JFrameUsuario();
         formUsuario.agregarListener(this);
         formUsuario.setVisible(true);
-        
-            formUsuario.getTxtNombreUsuario().addKeyListener(new KeyAdapter()
+            formUsuario.getBtnModificar().setVisible(false);
+            formUsuario.getBtnBorrar().setVisible(false);
+            formUsuario.getBtnActualizarCont().setVisible(false);
+        cargarUsuario();
+                //Zona de los KeyListener
+        formUsuario.getTxtBuscar().addKeyListener(new KeyAdapter()
       {        
             @Override
             public void keyTyped (KeyEvent e)
               {     
-                ValidarTxt(e,14,formUsuario.getTxtNombreUsuario().getText()); 
+                ValidarTxt(e,15,formUsuario.getTxtBuscar().getText());
                 ValidarSoloLetras(e);
                }
                  
             @Override
             public void keyPressed(KeyEvent e) 
-              {             
+               {             
               }
-
        }
-    );          
-     //----------------------------------------
-    formUsuario.getTxtPasw().addKeyListener(new KeyAdapter()
+                
+              
+    ); 
+        
+          formUsuario.getTUsuario().addKeyListener(new KeyAdapter()
       {        
             @Override
             public void keyTyped (KeyEvent e)
               {     
-                ValidarTxt(e,11,formUsuario.getTxtPasw().getText());  
-              }
-                 
-       }
-      );       
-    
-        formUsuario.getTxtConfPasw().addKeyListener(new KeyAdapter()
-      {        
-            @Override
-            public void keyTyped (KeyEvent e)
-              {     
-                ValidarTxt(e,11,formUsuario.getTxtConfPasw().getText()); 
+                ActivarBotones();
                }
                  
+            @Override
+            public void keyPressed(KeyEvent e) 
+               {   
+                   ActivarBotones();
+              }
        }
-      ); 
-          
+      );    
+        
     }
 
-    //------------zona de los botones-------------------------
-  
-  private void Limpiar()    
-{
-  formUsuario.getTxtConfPasw().setText("");  
-  formUsuario.getTxtPasw().setText("");
-  formUsuario.getTxtNombreUsuario().setText("");
-  formUsuario.getCmbNivelA().setSelectedIndex(0);
-  
-}
-  
-  private void Grabar()
-  {
-      Usuario usuario;
-      int existe;
-      String Cadena, NombreUsuario, NivelAcceso, Contrasena;
-   
-   Cadena=formUsuario.getTxtNombreUsuario().getText().trim();
     
-    if (Cadena.length()==0)
-     {
-       Validaciones.Aviso("Nombre Usuario Vacio", "");   
-       formUsuario.getTxtNombreUsuario().requestFocusInWindow();
-       return;
-     }  
-   
-   Cadena=formUsuario.getTxtPasw().getText().trim();
+    //-----------Validaciones---------------------
     
-    if (Cadena.length()==0)
-     {
-       Validaciones.Aviso("Contraseña Vacia", "");   
-       formUsuario.getTxtPasw().requestFocusInWindow();
-       return;
-     }  
-    
-    Cadena=formUsuario.getTxtConfPasw().getText().trim();
-    
-    if (Cadena.length()==0)
-     {
-       Validaciones.Aviso("Confirmar contraseña Vacio", "");   
-       formUsuario.getTxtConfPasw().requestFocusInWindow();
-       return;
-     }  
-    
-    
-    if (!Cadena.equals(formUsuario.getTxtPasw().getText().trim()))
-     {
-       Validaciones.Aviso("Contraseñas direfentes", "");   
-       formUsuario.getTxtPasw().requestFocusInWindow();
-       return;
-     }  
-
-    Cadena=(String)formUsuario.getCmbNivelA().getSelectedItem();
-    
-    /*if (Cadena.length()==0)
-     {
-       Validaciones.Aviso("Nivel de Acceso Vacio", "");   
-       formUsuario.getCmbNivelA().requestFocusInWindow();
-       return;
-     }  
-    */
-     
-    //------------------
-    NombreUsuario= (String)formUsuario.getTxtNombreUsuario().getText();
-    existe=ListaUsuario.ExisteUsuario(Cadena);
-    
-    if (existe ==-1)
-    { 
-        
-        NivelAcceso=(String)formUsuario.getCmbNivelA().getSelectedItem();
-        Contrasena = (String)formUsuario.getTxtPasw().getText();
-        
-        usuario = new Usuario(NombreUsuario,
-                               Contrasena,
-                               NivelAcceso);
-
-        ListaUsuario.getListaUsuario().add(usuario);
-        Limpiar();
-    }
-    else 
+    private void ActivarBotones()
     {
-        Validaciones.Aviso("No puede guardar, YA ESTA REGISTRADO", "");
-        return;
-    } 
-  }
-  
-
-    
-     //-----------Validaciones---------------------
+        if (formUsuario.getTUsuario().getSelectedRow()>1)
+        {
+            formUsuario.getBtnModificar().setVisible(true);
+            formUsuario.getBtnBorrar().setVisible(true);
+            formUsuario.getBtnActualizarCont().setVisible(true);
+        }
+    }
     
     private void ValidarTxt(KeyEvent e,int largo,String txt) 
     {
@@ -168,38 +89,55 @@ public class ControladorUsuario implements ActionListener
             e.consume();
     }
         
-    
-        private void ValidarTxtNum(KeyEvent e,int largo,String txt) 
-    {
-        if (txt.length()>largo)
-        {
-            e.consume();
-            return;
-        }
-        
-        char Digito; 
-        Digito=e.getKeyChar();
-        
-        if (Digito<'0' || Digito >'9')
-            e.consume();
-    }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if (e.getSource().equals(formUsuario.getBtnCancelar()))  
+         if (e.getSource().equals(formUsuario.getBtnNuevo()))  
       {  
-        Limpiar();  
+        new ControladorGuardarUsuario();  
       }   
         if (e.getSource().equals(formUsuario.getBtnRegresar()))  
       {  
         formUsuario.dispose();
       }
-        if (e.getSource().equals(formUsuario.getBtnGrabar()))  
+        if (e.getSource().equals(formUsuario.getBtnModificar()))  
       {  
-        Grabar();
+        new ControladorGuardarUsuario();
       }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke)
+    {
+       
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke)
+    {
         
     }
+
+    @Override
+    public void keyReleased(KeyEvent ke)
+    {
+        
+    }
+
+    private void cargarUsuario()
+    {
+         int Fila;  
+         Usuario us=new Usuario();
+  
+    for (Fila=0;Fila<ListaUsuario.getListaUsuario().size();Fila++)
+        {
+        us=ListaUsuario.getListaUsuario().get(Fila);
+        formUsuario.getTUsuario().setValueAt(us.getNombreUsuario(), Fila,0);
+        formUsuario.getTUsuario().setValueAt(us.getNivelAcceso(), Fila,1);    
+        }
+    }
+    
+    
     
 }
