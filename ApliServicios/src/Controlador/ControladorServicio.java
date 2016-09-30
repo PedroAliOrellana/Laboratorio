@@ -2,101 +2,151 @@
 package Controlador;
 
 
+import Librerias.Validaciones;
+import Modelo.Servicio;
+import Modelo.Lista;
 import Vista.JFrameServicio;
-
-import Util.Rutinas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class ControladorServicio implements ActionListener
 {
-     private JFrameServicio formServicio;
+     private final JFrameServicio formServicio;
+     private final Lista ListaServicio;
 
      @SuppressWarnings("LeakingThisInConstructor")
     public ControladorServicio()
     {
+        ListaServicio= new Lista();
         formServicio = new JFrameServicio();
         formServicio.agregarListener(this);
         formServicio.setVisible(true);
         
-     
-        //Zona de los KeyListener
-        formServicio.getTxtCodServicio().addKeyListener(new KeyAdapter()
+         formServicio.getTxtCodServicio().addKeyListener(new KeyAdapter()
       {        
             @Override
             public void keyTyped (KeyEvent e)
               {     
-                CodServicioKeyTyped(e); 
+                ValidarTxt(e,6,formServicio.getTxtCodServicio().getText()); 
+               
                }
                  
             @Override
             public void keyPressed(KeyEvent e) 
-               {             
+              {             
               }
 
-            private void CodServicioKeyTyped(KeyEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
        }
     );          
      //----------------------------------------
-    
-   formServicio.getTxtDescServicio().addKeyListener(new KeyAdapter()
+    formServicio.getTxtDescServicio().addKeyListener(new KeyAdapter()
       {        
             @Override
             public void keyTyped (KeyEvent e)
               {     
-                DescServicioKeyTyped(e); 
-               }
+                ValidarTxt(e,11,formServicio.getTxtDescServicio().getText()); 
+                 ValidarSoloLetras(e);
+              }
                  
        }
-      );          
-          
-   
-    }
-   
-//-------------------------------------
-private void CodServicioKeyTyped(KeyEvent e)
-{
-  String Cadena;
-  Cadena=formServicio.getTxtCodServicio().getText();
-  Cadena=Cadena.trim();
-  
-  if (Cadena.length()==5)
-   {
-     e.consume();   
-   }   
-}        
-//-------------------------------------
-private void DescServicioKeyTyped(KeyEvent e)
-{
-  String Cadena;
-  Cadena=formServicio.getTxtDescServicio().getText();
-  Cadena=Cadena.trim();
-  
-  if (Cadena.length()==30)
-   {
-     e.consume();   
-   }   
+      );       
     
-}        
-//-------------------------------------
- private void Limpiar()    
+     
+          
+ }      
+     
+//-------------------Botones de servicios------------------
+    private void Limpiar()
 { 
     formServicio.getTxtCodServicio().setText("");
     formServicio.getTxtDescServicio().setText("");
 }
  private void Grabar()
  {
+       Servicio servicio;
+      int existe;
+      String Cadena, codServicio, descripcion;
+              
+      Cadena=formServicio.getTxtCodServicio().getText().trim();
+  
+    if (Cadena.length()==0)
+     {
+       Validaciones.Aviso("Codigo de servicio Vacia", ""); 
+       formServicio.getTxtCodServicio().requestFocusInWindow();
+       return;
+     }  
+     
+      Cadena=formServicio.getTxtDescServicio().getText().trim();
+    
+    if (Cadena.length()==0)
+     {
+       Validaciones.Aviso("Descripcion de servicio Vacio", ""); 
+       formServicio.getTxtDescServicio().requestFocusInWindow();
+       return;
+     }  
+ 
+    
+     
+    //------------------
+    codServicio= (String)formServicio.getTxtCodServicio().getText();
+    existe=ListaServicio.existeServicio(Cadena);
+       
+    if (existe ==-1)
+    { 
+        descripcion=(String)formServicio.getTxtDescServicio().getText();
+        servicio= new Servicio(codServicio,
+                               descripcion);
+        
+        ListaServicio.getListaServicio().add(servicio);
+        Validaciones.Confirmacion("Guardado con éxito", "");
+        Limpiar();
+    }
+    else 
+    {
+        Validaciones.Aviso("No puede guardar, YA ESTA REGISTRADO", "");
+        return;
+    } 
+  }
+  
+
+    
+     //-----------Validaciones---------------------
+    
+    private void ValidarTxt(KeyEvent e,int largo,String txt) 
+    {
+        if (txt.length()>largo){
+            e.consume();
+        }
+    
+    }
+    
+    private void ValidarSoloLetras(KeyEvent e)
+    {
+        Character s= e.getKeyChar();
+        if (!Character.isLetter(s))
+            e.consume();
+    }
+        
+    
+        private void ValidarTxtNum(KeyEvent e,int largo,String txt) 
+    {
+        if (txt.length()>largo)
+        {
+            e.consume();
+            return;
+        }
+        
+        char Digito; 
+        Digito=e.getKeyChar();
+        
+        if (Digito<'0' || Digito >'9')
+            e.consume();
  }
 
-    @Override
+ @Override
     public void actionPerformed(ActionEvent e) 
     {
           if (e.getSource().equals(formServicio.getBtnCancelar()))  

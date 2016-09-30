@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -241,5 +242,9 @@ public class JFrameUsuario extends javax.swing.JFrame {
         this.btnRegresar.addActionListener(accion);
         this.btnBuscar.addActionListener(accion);
         this.btnActualizarCont.addActionListener(accion);
-        
-}   }
+}
+
+    public DefaultTableModel getM() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ }

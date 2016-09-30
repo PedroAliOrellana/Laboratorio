@@ -13,10 +13,9 @@ public class Lista
   private LinkedList<Obra> ListaObra= new LinkedList<Obra>();
   private LinkedList<Empleado> ListaEmpleado= new LinkedList<Empleado>();
   private LinkedList<Usuario> ListaUsuario= new LinkedList<Usuario>();
-  private LinkedList<Vehiculo> ListaVehiculo= new LinkedList<Vehiculo>();
-    
-  
-  public LinkedList<Servicio> getListaServicio() {
+  private LinkedList<Motivo> ListaMotivo = new LinkedList<Motivo>();
+
+    public LinkedList<Servicio> getListaServicio() {
         return ListaServicio;
     }
 
@@ -40,9 +39,10 @@ public class Lista
         return ListaUsuario;
     }
   
-   public LinkedList<Vehiculo> getListaVehiculo() {
-        return ListaVehiculo;
-    }
+  public LinkedList<Motivo> getListaMotivo()
+  {
+    return ListaMotivo;      
+  }
   
   
   
@@ -324,7 +324,7 @@ public class Lista
          // hacer una lectura comoda (disponer del metodo readLine()).
          //archivo = new File ("C:\\Arbitros.txt");
                            
-         Via=System.getProperty("user.dir")+"/src/Archivos/Usuario.txt";   
+         Via=System.getProperty("user.dir")+"/src/Archivos/Usuarios.txt";   
         
          archivo = new File (Via);
          
@@ -372,7 +372,9 @@ public class Lista
          }
       }      
 }
-   //-----
+
+  
+    
   //--------------------------------- 
       public void cargarEmpleado()
   {
@@ -448,27 +450,11 @@ public class Lista
    
    //---------------------------------  
 
-    public int ExisteUsuario(String nomUs) 
-    {
-      Integer Posi;
-      Usuario usu= new Usuario();
-      String nomLista;
-  
-  for (Posi=0;Posi< ListaUsuario.size();Posi++)
-     {
-     usu=ListaUsuario.get(Posi);
-     nomLista=usu.getNombreUsuario();
-     
-     if (nomLista.equals(nomUs))
-        return Posi;
-     }
-   return -1;
-    }
-//----------------------------------------
-   
-    public void cargarVehiculo()
+
+     //--------------------------------------------
+  public void cargarMotivo()
   {
-    Vehiculo veh=new Vehiculo();
+     Motivo motivo =new Motivo();
            
     String Via;
     int Cnt;
@@ -482,7 +468,7 @@ public class Lista
          // hacer una lectura comoda (disponer del metodo readLine()).
          //archivo = new File ("C:\\Arbitros.txt");
                            
-         Via=System.getProperty("user.dir")+"/src/Archivos/Vehiculo.txt";   
+         Via=System.getProperty("user.dir")+"/src/Archivos/Motivo.txt";   
         
          archivo = new File (Via);
          
@@ -500,16 +486,12 @@ public class Lista
               
               switch (Cnt)
               {
-                  case 1:veh.setMarca(linea);
-                         break;
-                  case 2:veh.setModelo(linea);
-                        break;
-                  case 3:veh.setPlaca(linea);
-                        break;
-                  
-                  case 4:veh.setCapacidad(linea); 
-                         ListaVehiculo.add(veh);
-                         veh=new Vehiculo();//resetear                         
+                  case 1:motivo.setCodMotivo(linea);
+                      
+                  case 2:motivo.setDescMotivo(linea);
+                         ListaMotivo.add(motivo);
+                         motivo=new Motivo();//regresar
+                                          
                          Cnt=0;
                          break;    
               }                
@@ -528,9 +510,60 @@ public class Lista
             }                  
          }catch (Exception e2){ 
          }
-      }      
-}
-   public int BuscarEmpleado(String C)
+      }    
+  }   
+
+  
+     //--------------------------------
+     public int BuscarUsuario(String nomUs) 
+    {
+      Integer Posi;
+      Usuario usu= new Usuario();
+      String nomLista;
+  for (Posi=0;Posi< ListaUsuario.size();Posi++)
+     {
+     usu=ListaUsuario.get(Posi);
+     nomLista=usu.getNombreUsuario();
+     
+     if (nomLista.equals(nomUs))
+        return Posi;
+     }
+   return -1;
+    }
+    //----------------------------- 
+   public int BuscarMotivo(String cod) {
+           Integer Posi;
+      Motivo mot= new Motivo();
+      String codLista;
+  for (Posi=0;Posi< ListaMotivo.size();Posi++)
+     {
+     mot=ListaMotivo.get(Posi);
+     codLista=mot.getCodMotivo();
+     
+     if (codLista.equals(cod))
+        return Posi;
+     }
+   return -1;  
+   }
+  
+  //-------------------------------
+      
+   public int BuscarServicio(String cod) {
+           Integer Posi;
+     Servicio ser= new Servicio();
+      String codLista;
+  for (Posi=0;Posi< ListaServicio.size();Posi++)
+     {
+     ser=ListaServicio.get(Posi);
+     codLista=ser.getCodServicio();
+     
+     if (codLista.equals(cod))
+        return Posi;
+     }
+   return -1;  
+   }
+   
+     public int BuscarEmpleado(String C)
     {
         int posi;
         Empleado emp = new Empleado();
@@ -545,10 +578,5 @@ public class Lista
         }
         return -1;
     }
-}
-
- 
-
- 
-
    
+   }
