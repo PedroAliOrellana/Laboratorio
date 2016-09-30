@@ -25,9 +25,7 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -36,7 +34,7 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
         jMenuItemRecursos = new javax.swing.JMenuItem();
         jMenuItemUsuario = new javax.swing.JMenuItem();
         jMenuItemEmpleado = new javax.swing.JMenuItem();
-        jMenuItemVehiculo = new javax.swing.JMenuItem();
+        jMenuItemMotivo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -45,11 +43,7 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
 
         jMenuItem2.setText("jMenuItem2");
 
-        jMenu4.setText("File");
-        jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("Edit");
-        jMenuBar2.add(jMenu5);
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,8 +73,13 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
         jMenuItemEmpleado.setText("Empleado");
         jMenu1.add(jMenuItemEmpleado);
 
-        jMenuItemVehiculo.setText("Vehiculo");
-        jMenu1.add(jMenuItemVehiculo);
+        jMenuItemMotivo.setText("Motivo");
+        jMenuItemMotivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMotivoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemMotivo);
 
         jMenuBar1.add(jMenu1);
 
@@ -115,6 +114,10 @@ public class JFrameMenuPrin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemRecursosActionPerformed
 
+    private void jMenuItemMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMotivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemMotivoActionPerformed
+
  //---------------------
 // ZONA DE LOS LISTENER    
 //---------------------
@@ -146,13 +149,13 @@ public JMenuItem getjMenuItemClientes()
         return jMenuItemUsuario;
     }
 
-    public JMenuItem getjMenuItemVehiculo() 
-    {
-        return jMenuItemVehiculo;
-    }
-
     public JMenuItem getjMenuItemEmpleado() {
         return jMenuItemEmpleado;
+    }
+
+    public JMenuItem getjMenuItemMotivo() 
+    {
+        return jMenuItemMotivo;
     }
 
     
@@ -164,7 +167,7 @@ public void agregarListener (ActionListener accion)
     this.jMenuItemRecursos.addActionListener(accion);
     this.jMenuItemUsuario.addActionListener(accion);
     this.jMenuItemEmpleado.addActionListener(accion);
-    this.jMenuItemVehiculo.addActionListener(accion);
+    this.jMenuItemMotivo.addActionListener(accion);
 }    
 
  
@@ -173,19 +176,17 @@ public void agregarListener (ActionListener accion)
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemEmpleado;
+    private javax.swing.JMenuItem jMenuItemMotivo;
     private javax.swing.JMenuItem jMenuItemObras;
     private javax.swing.JMenuItem jMenuItemRecursos;
     private javax.swing.JMenuItem jMenuItemServicio;
     private javax.swing.JMenuItem jMenuItemUsuario;
-    private javax.swing.JMenuItem jMenuItemVehiculo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,3 @@
-//este es un comentario para saber que el git me hace merge
-
 package Controlador;
 
 import Modelo.Lista;
@@ -16,12 +14,13 @@ public class ControladorMenuPrin implements ActionListener
            
     public ControladorMenuPrin() 
     {
-        lisEmpreServicios=new Lista();        
+        lisEmpreServicios=new Lista();
+        
         lisEmpreServicios.cargarServicio();        
         lisEmpreServicios.cargarCliente();
         lisEmpreServicios.cargarRecurso();
         lisEmpreServicios.cargarUsuario();
-        lisEmpreServicios.cargarVehiculo();
+        lisEmpreServicios.cargarMotivo();
         
         formMenuPrin = new JFrameMenuPrin();
         formMenuPrin.agregarListener(this);
@@ -35,7 +34,7 @@ public class ControladorMenuPrin implements ActionListener
     {
       if (e.getSource().equals(formMenuPrin.getjMenuItemObras()))  
       {
-          new ControladorObras(); 
+          new ControladorGuardarObra(); 
       }  
       //-------------------------------------
       if (e.getSource().equals(formMenuPrin.getjMenuItemClientes()))  
@@ -53,17 +52,17 @@ public class ControladorMenuPrin implements ActionListener
       }
        if(e.getSource().equals(formMenuPrin.getjMenuItemEmpleado()))
       {
-          new ControladorEmpleado(lisEmpreServicios);
+          new ControladorEmpleado();
            System.out.println("Esta en empleado1"); 
       }
        if(e.getSource().equals(formMenuPrin.getjMenuItemUsuario()))
       {
           new ControladorUsuario(lisEmpreServicios);
       }
-         if(e.getSource().equals(formMenuPrin.getjMenuItemVehiculo()))
-      {
-          new ControladorVehiculo(lisEmpreServicios);
-      }
+       if(e.getSource().equals(formMenuPrin.getjMenuItemMotivo()))
+       {
+           new ControladorGuardarMotivo(lisEmpreServicios);
+       }
     }
 
   
