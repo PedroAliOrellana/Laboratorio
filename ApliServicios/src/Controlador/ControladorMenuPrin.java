@@ -1,4 +1,4 @@
-//este es un comentario para saber que el git me hace merge
+//este es un comentario para saber que el git me hace merge 2
 
 package Controlador;
 
